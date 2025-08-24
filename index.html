@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConstructFin Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo" aria-label="Logo placeholder">CF</div>
+        <div class="name">ConstructFin</div>
+      </div>
+      <nav class="top-nav" aria-label="Primary">
+        <button class="nav-link" data-target="dashboard">Dashboard</button>
+        <button class="nav-link" data-target="loan-matching">Loan Matching</button>
+        <button class="nav-link" data-target="draw-request">Draw Request</button>
+        <button class="nav-link" data-target="budget-tracker">Budget Tracker</button>
+      </nav>
+    </header>
+
+    <main class="app-main">
+      <!-- Dashboard Screen -->
+      <section id="dashboard" class="screen is-active">
+        <div class="screen-header">
+          <h1>Home Dashboard</h1>
+          <div class="project-title">Current Project: <strong>Lot 243 – East Van</strong></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h2>Upload a New Project</h2>
+            <p class="muted">Upload PDF, image, or start with a simple form.</p>
+            <div id="upload-drop" class="dropzone" tabindex="0" role="button" aria-label="Upload new project">
+              <div class="drop-hint">Drag & drop files here</div>
+              <div class="or">or</div>
+              <label class="btn btn-accent">
+                Choose Files
+                <input id="project-file" type="file" accept=".pdf,image/*" multiple hidden />
+              </label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Quick Actions</h2>
+            <div class="actions">
+              <button class="btn btn-accent" data-action="apply-loan">Apply for Loan</button>
+              <button class="btn" data-action="submit-draw">Submit Draw</button>
+              <button class="btn" data-action="invite-team">Invite Team</button>
+              <button class="btn" data-action="track-progress">Track Progress</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-lg">
+          <div class="card-header">
+            <h2>Uploaded Projects</h2>
+          </div>
+          <div id="projects-list" class="projects"></div>
+        </div>
+      </section>
+
+      <!-- Loan Matching Screen -->
+      <section id="loan-matching" class="screen">
+        <div class="screen-header">
+          <h1>Loan Matching</h1>
+          <div class="muted">Matched lenders based on your project profile</div>
+        </div>
+        <div id="lenders-list" class="cards-list"></div>
+        <div class="mt-lg">
+          <button class="btn" data-target="dashboard">Back to Dashboard</button>
+        </div>
+      </section>
+
+      <!-- Draw Request Screen -->
+      <section id="draw-request" class="screen">
+        <div class="screen-header">
+          <h1>Submit Draw Request</h1>
+          <div class="muted">Provide receipts, inspection photos, and describe the work progress</div>
+        </div>
+
+        <form id="draw-form" class="form" autocomplete="off">
+          <div class="form-row">
+            <label class="form-label">Upload Receipts</label>
+            <input type="file" id="receipts" accept="image/*,.pdf" multiple />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Inspection Photos</label>
+            <input type="file" id="photos" accept="image/*" multiple />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Work Progress</label>
+            <textarea id="progress-notes" rows="5" placeholder="Describe the completed work and what is upcoming..."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-accent">Submit Draw Request</button>
+            <button type="button" class="btn" data-target="dashboard">Cancel</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Budget Tracker Screen -->
+      <section id="budget-tracker" class="screen">
+        <div class="screen-header">
+          <h1>Budget Tracker</h1>
+          <div class="muted">High-level view of your budget categories</div>
+        </div>
+
+        <div id="budget-bars" class="budget-bars"></div>
+
+        <div class="mt-lg">
+          <button class="btn" data-target="dashboard">Back to Dashboard</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal: Loan Terms -->
+    <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-content" role="document">
+        <div class="modal-header">
+          <h2 id="modal-title">Loan Terms</h2>
+          <button class="icon-btn" data-close aria-label="Close">✕</button>
+        </div>
+        <div id="modal-body" class="modal-body"></div>
+        <div class="modal-footer">
+          <button class="btn" data-close>Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="./app.js"></script>
+  </body>
+  </html>
+
